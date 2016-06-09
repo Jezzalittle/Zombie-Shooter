@@ -120,7 +120,11 @@ Sprite.prototype.update = function(dt) {
 	}
 };
 
-Sprite.prototype.draw = function(c, x, y) {
+Sprite.prototype.draw = function(c, x, y, s) {
+	if(s != undefined)
+	{
+		this.s = s;
+	}
 	// img	Specifies the image, canvas, or video element to use	 
 	// sx	Optional. The x coordinate where to start clipping	
 	// sy	Optional. The y coordinate where to start clipping	
@@ -137,8 +141,8 @@ Sprite.prototype.draw = function(c, x, y) {
 			this.animations[this.currentAnimation][this.currentFrame].width,
 			this.animations[this.currentAnimation][this.currentFrame].height,
 			x+this.offsets[this.currentAnimation].x, y+this.offsets[this.currentAnimation].y,
-			this.animations[this.currentAnimation][this.currentFrame].width,
-			this.animations[this.currentAnimation][this.currentFrame].height);
+			this.animations[this.currentAnimation][this.currentFrame].width * s,
+			this.animations[this.currentAnimation][this.currentFrame].height* s);
 };
 
 

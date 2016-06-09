@@ -5,7 +5,7 @@ var context = canvas.getContext("2d");
 
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
-
+var viewOffset = new Vector2();
 
 function getDeltaTime()
 {
@@ -62,11 +62,26 @@ function runMenu(deltaTime)
 
 function runGame(deltaTime)
 {
-drawMap();
+context.save()
+	if (player.position.x >= viewOffset.x + canvas.width/2)
+	 {
+			viewOffset.x = player.position.x - canvas.width / 2 + 25;
+		
+	}
+	
+	if(player.position.x <= viewOffset.x + canvas.width/2)
+	{
+		viewOffset.x = player.position.x - canvas.width / 2 +25;
+	} 
 
+	context.translate(-viewOffset.x +5 , -viewOffset.y + 5);
+context.scale(2,2)
+drawMap();
+player.update(deltaTime);
+player.draw();
+context.restore()
 context.fillStyle = "#f00";
 context.font="14px Arial";
-context.fillText("FPS: " + fps, 5, 20, 100);
 }
 
 function runGameWin(deltaTime)
@@ -110,11 +125,33 @@ switch(gameState)
 }
 }
 
+function cellAtPixelCoord(layer, x,y)
+{
+  sfxIsPlaying = true;
+if(x<0 || x>SCREEN_WIDTH) 
+return 1;
+if(y>SCREEN_HEIGHT)
+return 0;
+return cellAtTileCoord(layer, p2t(x), p2t(y));
+};
+function cellAtTileCoord(layer, tx, ty)
+{
+if(tx<0 || tx>=MAP.tw)
+return 1;
+if(ty < 0 || ty>=MAP.th)
+return 0;
+return cells[layer][ty][tx];
+};
+
+function pixelToTile(pixel)
+{
+return Math.floor(pixel/TILE);
+};
 
 
 function drawMap()
 {
-	for(var layerIdx=0; layerIdx<LAYER_COUNT; layerIdx++)
+	for(var layerIdx=0; layerIdx < LAYER_COUNT; layerIdx++)
 	{
 		if(level.layers[layerIdx].visible == false) continue;
 		var idx = 0;
@@ -126,7 +163,7 @@ function drawMap()
 				{
 					var tileIndex = level.layers[layerIdx].data[idx] - 1;
 					var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
-					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) * (TILESET_TILE + TILESET_SPACING);
+					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_X)) * (TILESET_TILE + TILESET_SPACING);
 					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x*TILE, (y)*TILE, TILESET_TILE+1, TILESET_TILE+1);
 					
 				}
