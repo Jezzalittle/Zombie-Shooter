@@ -39,6 +39,8 @@ var gameState = gameStateMainMenu;
 
 var Floor = 0;
 var Walls = 1;
+var Doors = 2;
+var shop = 3;
 
 var player = new Player();
 var keyboard = new Keyboard();
