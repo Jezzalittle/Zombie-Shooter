@@ -45,6 +45,8 @@ var shop = 3;
 var player = new Player();
 var keyboard = new Keyboard();
 
+var scale = new Vector2();
+scale.set(2,2);
 
 var tileset = document.createElement("img");
 tileset.src = level.tilesets[0].image
@@ -63,19 +65,16 @@ function runMenu(deltaTime)
 function runGame(deltaTime)
 {
 context.save()
-	if (player.position.x >= viewOffset.x + canvas.width/2)
-	 {
-			viewOffset.x = player.position.x - canvas.width / 2 + 25;
-		
-	}
-	
-	if(player.position.x <= viewOffset.x + canvas.width/2)
-	{
-		viewOffset.x = player.position.x - canvas.width / 2 +25;
-	} 
 
-	context.translate(-viewOffset.x +5 , -viewOffset.y + 5);
+		viewOffset.x = player.position.x - canvas.width /(2* scale.x);
+
+
+		viewOffset.y = player.position.y - canvas.height/(2* scale.y) 
+
 context.scale(2,2)
+	context.translate(-viewOffset.x , -viewOffset.y );
+
+
 drawMap();
 player.update(deltaTime);
 player.draw();

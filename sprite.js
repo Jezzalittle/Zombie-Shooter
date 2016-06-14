@@ -120,10 +120,14 @@ Sprite.prototype.update = function(dt) {
 	}
 };
 
-Sprite.prototype.draw = function(c, x, y, s) {
-	if(s != undefined)
+Sprite.prototype.draw = function(c, x, y, s, r) {
+	if(s == undefined)
 	{
-		this.s = s;
+		s = 1;
+	}
+		if(r == undefined)
+	{
+		r = 0;
 	}
 	// img	Specifies the image, canvas, or video element to use	 
 	// sx	Optional. The x coordinate where to start clipping	
@@ -134,15 +138,26 @@ Sprite.prototype.draw = function(c, x, y, s) {
 	// y	The y coordinate where to place the image on the canvas	
 	// width	Optional. The width of the image to use (stretch or reduce the image)	
 	// height	Optional. The height of the image to use (stretch or reduce the image)
-		
+		c.save();
+		c.translate(x, y)
+		c.scale(s,s)
+		c.rotate(r)
 	c.drawImage(this.image, 
 			this.animations[this.currentAnimation][this.currentFrame].x,
 			this.animations[this.currentAnimation][this.currentFrame].y,
+			
+			
 			this.animations[this.currentAnimation][this.currentFrame].width,
 			this.animations[this.currentAnimation][this.currentFrame].height,
-			x+this.offsets[this.currentAnimation].x, y+this.offsets[this.currentAnimation].y,
-			this.animations[this.currentAnimation][this.currentFrame].width * s,
-			this.animations[this.currentAnimation][this.currentFrame].height* s);
+			
+			
+			this.offsets[this.currentAnimation].x,
+			this.offsets[this.currentAnimation].y,
+			
+			
+			this.animations[this.currentAnimation][this.currentFrame].width,
+			this.animations[this.currentAnimation][this.currentFrame].height);
+		c.restore();	
 };
 
 

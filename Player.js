@@ -27,6 +27,13 @@ Player.prototype.update = function(deltaTime)
 {
 this.sprite.update(deltaTime);
 
+var mouseX = event.clientX - canvas/2;
+var mouseY = event.clientY - canvas/2;
+
+
+var rotation = Math.atan2(mouseY, mouseX);
+
+
 
 if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard.KEY_W) == true)) 
  {
@@ -84,5 +91,5 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 
 Player.prototype.draw = function()
 {
-	this.sprite.draw(context, this.position.x, this.position.y, 0.375);
+	this.sprite.draw(context, this.position.x, this.position.y, 0.375, rotation);
 }
