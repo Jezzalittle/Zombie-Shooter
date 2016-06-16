@@ -1,7 +1,7 @@
 
 var knifeAnim
 
-var mousePos = new Vector2();
+
 
 var Player = function()
 {
@@ -25,12 +25,12 @@ this.isdead = false
 
 }
 
+
 Player.prototype.update = function(deltaTime)
 {
 this.sprite.update(deltaTime);
 
-mousePos = mouse.getMousePos
-var rotation = Math.atan2(mousePos.y, mousePos.x);
+
 
 
 
@@ -90,5 +90,11 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 
 Player.prototype.draw = function()
 {
+	var mousePos = mouse.getMousePos();
+	var canvasMid = new Vector2();
+	canvasMid.set(canvas.width/2, canvas.height/2)
+	mousePos.subtract(canvasMid)
+	var rotation = Math.atan2(mousePos.y, mousePos.x);
+	
 	this.sprite.draw(context, this.position.x, this.position.y, 0.375, rotation);
 }

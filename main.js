@@ -43,6 +43,7 @@ var Doors = 2;
 var shop = 3;
 
 var player = new Player();
+var mouse = new Mouse();
 var keyboard = new Keyboard();
 
 var scale = new Vector2();
