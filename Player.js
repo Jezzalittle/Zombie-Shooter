@@ -1,6 +1,8 @@
 
 var knifeAnim
 
+var mousePos = new Vector2();
+
 var Player = function()
 {
 this.sprite = new Sprite("survivor-idle_knife_0.png");
@@ -27,11 +29,8 @@ Player.prototype.update = function(deltaTime)
 {
 this.sprite.update(deltaTime);
 
-var mouseX = event.clientX - canvas/2;
-var mouseY = event.clientY - canvas/2;
-
-
-var rotation = Math.atan2(mouseY, mouseX);
+mousePos = mouse.getMousePos
+var rotation = Math.atan2(mousePos.y, mousePos.x);
 
 
 
