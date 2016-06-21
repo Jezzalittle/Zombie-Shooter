@@ -8,7 +8,7 @@ var Player = function()
 this.sprite = new Sprite("survivor-idle_knife_0.png");
 this.sprite.buildAnimation(1, 1, 289, 224, 0.05,
 [0]);
-this.sprite.setAnimationOffset(0, -50,-70 );
+this.sprite.setAnimationOffset(0, -194,-112 );
 
 this.position = new Vector2();
 this.position.set( 3*TILE, 3*TILE );
@@ -31,7 +31,10 @@ Player.prototype.update = function(deltaTime)
 this.sprite.update(deltaTime);
 
 
-
+if(gunState == knife)
+{
+	
+}
 
 
 if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard.KEY_W) == true)) 
@@ -41,7 +44,7 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 	var tx = pixelToTile(this.position.x + this.offset.x);
 	var ty = pixelToTile(this.position.y + this.offset.y);
 	 
-	 if(cellAtTileCoord(Walls, tx, ty) == true)
+	 if(cellAtTileCoord(Walls, tx, ty - 1) == true)
 	 {
 		 this.position.y = ty * TILE + TILE - this.offset.y;
 	 }
@@ -54,7 +57,7 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 	 var tx = pixelToTile(this.position.x + this.offset.x);
 	 var ty = pixelToTile(this.position.y + this.offset.y);
 	 
-	 if(cellAtTileCoord(Walls, tx, ty) == true)
+	 if(cellAtTileCoord(Walls, tx, ty + 1) == true)
 	 {
 		 this.position.y = ty * TILE - 1 - this.offset.y;
 	 }
@@ -67,7 +70,7 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 	 var tx = pixelToTile(this.position.x + this.offset.x);
 	 var ty = pixelToTile(this.position.y + this.offset.y);
 	 
-	 if(cellAtTileCoord(Walls, tx, ty) == true)
+	 if(cellAtTileCoord(Walls, tx + 1, ty) == true)
 	 {
 		 this.position.x = tx * TILE - 1 - this.offset.x;
 	 }
@@ -80,7 +83,7 @@ if((keyboard.isKeyDown(keyboard.KEY_UP) == true) || (keyboard.isKeyDown(keyboard
 	 var tx = pixelToTile(this.position.x + this.offset.x);
 	 var ty = pixelToTile(this.position.y + this.offset.y);
 	 
-	 if(cellAtTileCoord(Walls, tx, ty) == true)
+	 if(cellAtTileCoord(Walls, tx - 1, ty) == true)
 	 {
 		 this.position.x = tx * TILE + TILE - this.offset.x;
 	 }

@@ -3,6 +3,7 @@ var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
 
+
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 var viewOffset = new Vector2();
@@ -19,7 +20,10 @@ function getDeltaTime()
 	
 	return deltaTime;
 }
+var knife = 0;
+var pistol = 1;
 
+var gunState = knife;
 
 
 var LAYER_COUNT = level.layers.length;
@@ -53,6 +57,12 @@ var tileset = document.createElement("img");
 tileset.src = level.tilesets[0].image
 
 
+	var mousePos = mouse.getMousePos();
+	var canvasMid = new Vector2();
+	canvasMid.set(canvas.width/2, canvas.height/2)
+	mousePos.subtract(canvasMid)
+	var rotation = Math.atan2(mousePos.y, mousePos.x);
+
 function runMenu(deltaTime)
 {
 
@@ -65,6 +75,7 @@ function runMenu(deltaTime)
 
 function runGame(deltaTime)
 {
+
 context.save()
 
 		viewOffset.x = player.position.x - canvas.width /(2* scale.x);
